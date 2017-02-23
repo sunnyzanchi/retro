@@ -1,0 +1,35 @@
+{
+  "name": "retro",
+  "version": "0.1.0",
+  "description": "For sprint retros",
+  "main": "app.js",
+  "devDependencies": {
+    "css-loader": "^0.26.1",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-webpack": "^1.5.0",
+    "pump": "^1.0.2",
+    "sass-loader": "^5.0.1",
+    "vue-loader": "^10.3.0",
+    "vue-style-loader": "^2.0.0",
+    "vue-template-compiler": "^2.1.10",
+    "webpack": "^2.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zanchi",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "moment": "^2.17.1",
+    "qwest": "^4.4.5",
+    "rethinkdb": "^2.3.3",
+    "rethinkdbdash": "^2.3.28",
+    "vue": "^2.1.10",
+    "vue-router": "^2.2.1",
+    "vue-svg-loader": "^0.1.2"
+  }
+}
