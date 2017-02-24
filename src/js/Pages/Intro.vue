@@ -54,9 +54,7 @@
 <template>
   <div class="intro">
     <div class="title-container">
-      <h1 class="title" key="title">
-        <RetroIcon alt="Sprint Retro" class="retro-icon">
-      </h1>
+      <Logo />
     </div>
     <div class="name-container">
       <p>Enter your name to continue</p>
@@ -68,11 +66,11 @@
   </div>
 </template>
 <script>
-import RetroIcon from 'img/retro.svg';
+import Logo from 'Components/Logo.vue';
 
 export default {
   components: {
-    RetroIcon
+    Logo
   },
   data(){
     return{

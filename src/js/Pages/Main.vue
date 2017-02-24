@@ -44,9 +44,7 @@
 </style>
 <template>
   <div class="list container">
-    <h1 class="title" key="title">
-      <RetroIcon alt="Sprint Retro" class="retro-icon">
-    </h1>
+    <Logo />
     <ol v-if="sprints.length > 0">
       <li class="sprint-item" v-for="sprint in sortedSprints">
         <div @click="navigate(sprint.name)">
@@ -66,7 +64,7 @@ import qwest from 'qwest';
 import moment from 'moment';
 import router from '../router';
 
-import RetroIcon from 'img/retro.svg';
+import Logo from 'Components/Logo.vue';
 
 export default {
   created(){
@@ -74,7 +72,7 @@ export default {
       .then((xhr, response) => this.sprints = response);
   },
   components: {
-    RetroIcon
+    Logo
   },
   computed: {
     sortedSprints(){

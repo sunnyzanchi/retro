@@ -29,7 +29,7 @@ button, input, textarea{
   font-size: 14px;
   font-weight: 400;
 }
-textarea:focus{
+input:focus, textarea:focus{
   outline: 0;
   box-shadow: 0 0 3px 1px #3c9;
 }
@@ -39,28 +39,28 @@ textarea:focus{
   border-radius: 5px;
   color: #fff;
   font-size: 16px;
-  margin: 20px;
+  margin: 20px auto;
+  max-width: 350px;
   padding: 12px;
+  transition: .3s color, .3s background;
+  width: 85%;
 }
 .big-button:focus{
   background: #0a7;
   outline: 0;
 }
+.big-button:disabled{
+  background: #999;
+  color: #ccc;
+}
 .container{
   display: flex;
   flex-direction: column;
-  height: 100%;
   margin: auto;
   max-width: 900px;
+  min-height: 100%;
   overflow: auto;
   width: 95%;
-}
-.retro-icon{
-  fill: #3c9;
-}
-h1.title{
-  max-width: 200px;
-  margin: 25px auto;
 }
 .date{
   display: inline-block;

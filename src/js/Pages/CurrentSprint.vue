@@ -1,5 +1,9 @@
 <style lang="scss">
   .sprint{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
     .name, .date{
       display: block;
       float: none;
@@ -21,19 +25,19 @@
 </style>
 <template lang="html">
   <div class="container">
-    <h1 class="title" key="title">
-      <RetroIcon alt="Sprint Retro" class="retro-icon">
-    </h1>
+    <Logo />
     <div class="sprint">
       <div class="header">
         <h1 class="name">{{$route.params.sprintName}}</h1>
         <h2 class="date">Ends in {{daysTilEnd}}</h2>
       </div>
       <ul>
-        <li>
-          <CommentCreator title="The Good"/>
+        <li v-for="type in types">
+          <CommentCreator :title="type.name"
+                          v-model="type.data"/>
         </li>
       </ul>
+      <button class="big-button" :disabled="!submittable">Submit</button>
     </div>
   </div>
 </template>
@@ -44,7 +48,7 @@ import moment from 'moment';
 import router from '../router';
 
 import CommentCreator from 'Components/CommentCreator.vue';
-import RetroIcon from 'img/retro.svg';
+import Logo from 'Components/Logo.vue';
 
 export default {
   created(){
@@ -63,7 +67,7 @@ export default {
   },
   components: {
     CommentCreator,
-    RetroIcon
+    Logo
   },
   computed: {
     daysTilEnd(after){
@@ -89,13 +93,33 @@ export default {
         if(number === 9) return 'nine';
         return number;
       }
+    },
+    submittable(){
+      for(let type of this.types){
+        if(typeof type.data[0] === 'string' && type.data[0].trim() !== '') return true;
+      }
+      return false;
     }
   },
   data(){
     return {
-      name: null,
       end: null,
-      start: null
+      name: null,
+      start: null,
+      types: [
+        {
+          name: 'The Good',
+          data: []
+        },
+        {
+          name: 'The Bad',
+          data: []
+        },
+        {
+          name: 'Suggestions',
+          data: []
+        }
+      ]
     }
   },
   filters: {

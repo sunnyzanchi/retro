@@ -21,10 +21,8 @@
 </style>
 <template lang="html">
   <div class="create container">
-    <h1 class="title">
-      <RetroIcon class="retro-icon" />
-    </h1>
-    <h1>Create</h1>
+    <Logo />
+    <h1>New Sprint</h1>
     <div class="inputs">
       <div class="input-section">
         <label for="name">Name</label>
@@ -45,7 +43,7 @@
                v-model="end">
       </div>
     </div>
-    <button class="big-button" @click="submit">Submit</button>
+    <button class="big-button" @click="submit">Create</button>
   </div>
 </template>
 
@@ -53,11 +51,11 @@
 import qwest from 'qwest';
 import router from '../router';
 
-import RetroIcon from 'img/retro.svg';
+import Logo from 'Components/Logo.vue';
 
 export default {
   components: {
-    RetroIcon
+    Logo
   },
   data(){
     return {
