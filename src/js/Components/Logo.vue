@@ -11,7 +11,7 @@
     <h1 class="title">
       <RetroIcon alt="Sprint Retro"
                  class="retro-icon"
-                 @click="navigateHome">
+                 @click.native="navigateHome" />
     </h1>
 </template>
 

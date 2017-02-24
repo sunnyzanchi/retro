@@ -37,7 +37,10 @@
                           v-model="type.data"/>
         </li>
       </ul>
-      <button class="big-button" :disabled="!submittable">Submit</button>
+      <button class="big-button"
+              :disabled="!submittable"
+              @click="submit">Submit
+      </button>
     </div>
   </div>
 </template>
@@ -124,6 +127,14 @@ export default {
   },
   filters: {
     humanizeDays(days){
+    }
+  },
+  methods: {
+    submit(){
+      qwest.post('/api/comments', {name: this.name, types: this.types})
+      .then(function(xhr, response){
+        console.log(response);
+      });
     }
   }
 }

@@ -1,4 +1,9 @@
-<style lang="css">
+<style lang="scss">
+  .err{
+    h1{
+      text-align: center;
+    }
+  }
 </style>
 <template lang="html">
   <div class="err">

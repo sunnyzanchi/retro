@@ -13,6 +13,7 @@ router.get('/sprints', function(req, res){
 });
 
 /*
+ * /sprint
  * GET: Gets the information for a given sprint
  * POST: Creates a new sprint with the given information
  */
@@ -36,5 +37,18 @@ router.route('/sprint')
   }
   else res.status(400).send('Invalid date!');
 });
+
+/*
+ * /comments
+ * GET: Gets all the comments for a given sprints
+ * POST: Adds comments to the given sprint
+ */
+ router.route('/comments')
+ .get(function(req, res){
+
+ })
+ .post(function(req, res){
+   console.log(req.body);
+ });
 
 module.exports = router;

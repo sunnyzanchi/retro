@@ -70,7 +70,7 @@ export default {
         name: this.name,
         start: this.start,
         end: this.end
-      }, {dataType: 'json'});
+      });
     }
   }
 }
