@@ -1,4 +1,6 @@
-const r = require('rethinkdbdash');
+const r = require('rethinkdb');
 const server = require('../db.json');
 
-r.dbDop('retro');
+r.connect(server)
+.then(conn => r.dbDrop('retro').run(conn))
+.then(result => console.log(result));

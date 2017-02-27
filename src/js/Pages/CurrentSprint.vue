@@ -34,7 +34,7 @@
       <ul>
         <li v-for="type in types">
           <CommentCreator :title="type.name"
-                          v-model="type.data"/>
+                          v-model="type.comments"/>
         </li>
       </ul>
       <button class="big-button"
@@ -56,8 +56,8 @@ import Logo from 'Components/Logo.vue';
 export default {
   created(){
     const self = this;
-    this.name = this.$route.params.sprintName;
-    qwest.get('/api/sprint', {name: this.name})
+    this.sprint = this.$route.params.sprintName;
+    qwest.get('/api/sprint', {name: this.sprint})
     .then(function(xhr, response){
       const [sprint] = response;
       self.start = sprint.start;
@@ -75,7 +75,7 @@ export default {
   computed: {
     daysTilEnd(after){
       const end = moment(this.end);
-      const days = Math.abs(end.diff(moment(), 'days'));
+      const days = Math.abs(end.diff(moment(), 'days') + 1);
 
       if(days === 1) return 'one day';
       if(days < 7) return numberToWord(days) + ' days'
@@ -99,7 +99,7 @@ export default {
     },
     submittable(){
       for(let type of this.types){
-        if(typeof type.data[0] === 'string' && type.data[0].trim() !== '') return true;
+        if(typeof type.comments[0] === 'string' && type.comments[0].trim() !== '') return true;
       }
       return false;
     }
@@ -107,20 +107,20 @@ export default {
   data(){
     return {
       end: null,
-      name: null,
+      sprint: null,
       start: null,
       types: [
         {
           name: 'The Good',
-          data: []
+          comments: []
         },
         {
           name: 'The Bad',
-          data: []
+          comments: []
         },
         {
           name: 'Suggestions',
-          data: []
+          comments: []
         }
       ]
     }
@@ -131,7 +131,9 @@ export default {
   },
   methods: {
     submit(){
-      qwest.post('/api/comments', {name: this.name, types: this.types})
+      const name = localStorage.getItem('name');
+
+      qwest.post('/api/comments', {name, sprint: this.sprint, types: this.types})
       .then(function(xhr, response){
         console.log(response);
       });
