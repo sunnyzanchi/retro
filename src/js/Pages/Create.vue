@@ -43,7 +43,9 @@
                v-model="end">
       </div>
     </div>
-    <button class="big-button" @click="submit">Create</button>
+    <button class="big-button"
+            :disabled="!submittable"
+            @click="submit">Create</button>
   </div>
 </template>
 
@@ -57,6 +59,15 @@ export default {
   components: {
     Logo
   },
+  computed: {
+    submittable(){
+      if(this.name.trim() !== '' &&
+         this.start.trim() !== '' &&
+         this.end.trim() !== '') return true;
+
+      return false;
+    }
+  },
   data(){
     return {
       name: '',
@@ -66,7 +77,7 @@ export default {
   },
   methods: {
     submit(){
-      qwest.post('/api/sprint', {
+      qwest.put('/api/sprint', {
         name: this.name,
         start: this.start,
         end: this.end

@@ -7,21 +7,27 @@ const r = require('rethinkdbdash')(server);
 
 /* Gets a list of all sprints */
 router.get('/sprints', function(req, res){
-  r.table('sprints').pluck('name', 'start', 'end').run()
-    .then(result => res.json(result))
-    .catch(err => res.status(500).send(err));
+  r.table('sprints')
+    .orderBy({index: 'end'})
+    .pluck('name', 'start', 'end')
+    .run()
+  .then(result => res.json(result))
+  .catch(err => res.status(500).send(err));
 });
 
 /*
  * /sprint
  * GET: Gets the information for a given sprint
- * POST: Creates a new sprint with the given information
+ * PUT: Creates a new sprint with the given information
  */
 router.route('/sprint')
   .get(function(req, res){
     const name = req.query.name;
 
-    r.table('sprints').filter({name}).pluck('name', 'start', 'end').run()
+    r.table('sprints')
+      .filter({name})
+      .pluck('name', 'start', 'end')
+      .run()
     .then(result => {
       if(result.length > 0)
         res.json(result);
@@ -31,21 +37,20 @@ router.route('/sprint')
     .catch(err => res.status(500).send(err));
   })
 
-  .post(function(req, res){
+  .put(function(req, res){
     const start = moment(req.body.start);
     const end = moment(req.body.end);
 
-    if(start.isValid() && end.isValid()){
-      if(end.isAfter(start)){
-        r.table('sprints').insert(req.body).run()
-          .then(_ => res.status(200).end())
-          .catch(err => res.status(500).send(err));
-      }
-      else{
-        res.status(400).send('End date must be after start date');
-      }
-    }
-    else res.status(400).send('Invalid date');
+    if(!start.isValid() || !end.isValid()) return res.status(400).send('Invalid date');
+    if(!end.isAfter(start)) return res.status(400).send('End date must be after start date');
+    let data = {
+      start: start.valueOf(),
+      end: end.valueOf(),
+      name: req.body.name
+    };
+    r.table('sprints').insert(data, {conflict: 'error'}).run()
+      .then(_ => res.status(201).end())
+      .catch(err => res.status(500).send(err));
   });
 
 /*
@@ -72,7 +77,7 @@ router.route('/sprint')
        type.user = user;
      }
      r.table('comments').insert(types).run()
-      .then(_ => res.status(200).end())
+      .then(_ => res.status(201).end())
       .catch(err => res.status(500).send(err));
    });
 
