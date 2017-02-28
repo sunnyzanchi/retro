@@ -57,11 +57,12 @@ export default {
   created(){
     const self = this;
     this.sprint = this.$route.params.sprintName;
+    
     qwest.get('/api/sprint', {name: this.sprint})
     .then(function(xhr, response){
-      const [sprint] = response;
-      self.start = sprint.start;
-      self.end = sprint.end;
+      const {meta, comments} = response;
+      self.start = meta.start;
+      self.end = meta.end;
     })
     .catch(function(err, xhr, response){
       console.log(err);
@@ -73,16 +74,20 @@ export default {
     Logo
   },
   computed: {
-    daysTilEnd(after){
+    daysTilEnd(){
       const end = moment(this.end);
-      const days = Math.abs(end.diff(moment(), 'days') + 1);
+      const days = end.diff(moment(), 'days') + 1;
 
-      if(days === 1) return 'one day';
-      if(days < 7) return numberToWord(days) + ' days'
-      if(days === 7) return 'one week';
-      if(days < 14) return 'one week and ' + this.daysTilEnd(after - 7);
-      if(days === 14) return 'two weeks'
-      return 'over two weeks';
+      return calculate(days);
+
+      function calculate(days){
+        if(days === 1) return 'one day';
+        if(days < 7) return numberToWord(days) + ' days'
+        if(days === 7) return 'one week';
+        if(days < 14) return 'a week and ' + calculate(days - 7);
+        if(days === 14) return 'two weeks'
+        return 'over two weeks';
+      }
 
       function numberToWord(number){
         if(number === 1) return 'one';
@@ -131,9 +136,21 @@ export default {
   },
   methods: {
     submit(){
-      const name = localStorage.getItem('name');
+      const user = localStorage.getItem('name');
+      const data = [];
 
-      qwest.post('/api/comments', {name, sprint: this.sprint, types: this.types})
+      for(let type of this.types){
+        for(let comment of type.comments){
+          data.push({
+            comment,
+            user,
+            type: type.name,
+            sprint: this.sprint
+          });
+        }
+      }
+
+      qwest.post('/api/comments', data)
       .then(function(xhr, response){
         console.log(response);
       });

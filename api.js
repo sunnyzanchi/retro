@@ -24,15 +24,23 @@ router.route('/sprint')
   .get(function(req, res){
     const name = req.query.name;
 
-    r.table('sprints')
+    const meta = r.table('sprints')
       .filter({name})
       .pluck('name', 'start', 'end')
-      .run()
-    .then(result => {
-      if(result.length > 0)
-        res.json(result);
-      else
-        res.status(400).send('Can\'t find that sprint!')
+      .run();
+
+    const comments = r.table('comments')
+      .filter({sprint: name})
+      .pluck('comment', 'type')
+      .run();
+
+    Promise.all([meta, comments])
+    .then(function(values){
+      const [meta, comments] = values;
+
+      if(meta.length === 0) return res.status(404).send('Can\'t find that sprint!');
+
+      return res.json({meta: meta[0], comments});
     })
     .catch(err => res.status(500).send(err));
   })
@@ -44,8 +52,8 @@ router.route('/sprint')
     if(!start.isValid() || !end.isValid()) return res.status(400).send('Invalid date');
     if(!end.isAfter(start)) return res.status(400).send('End date must be after start date');
     let data = {
-      start: start.valueOf(),
-      end: end.valueOf(),
+      start: start.toDate(),
+      end: end.toDate(),
       name: req.body.name
     };
     r.table('sprints').insert(data, {conflict: 'error'}).run()
@@ -68,15 +76,13 @@ router.route('/sprint')
    })
 
    .post(function(req, res){
-     const user = req.body.user;
-     const types = req.body.types;
-     const time = moment();
-
-     for(let type of types){
-       type.sprint = req.body.sprint;
-       type.user = user;
+     const comments = req.body;
+     const time = new Date;
+     for(let comment of comments){
+       comment.time = time;
      }
-     r.table('comments').insert(types).run()
+
+     r.table('comments').insert(comments).run()
       .then(_ => res.status(201).end())
       .catch(err => res.status(500).send(err));
    });
