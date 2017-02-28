@@ -10,13 +10,6 @@ import Sprint from 'Pages/CurrentSprint.vue';
 import Submitted from 'Pages/Submitted.vue';
 import View from 'Pages/View.vue';
 
-// Vue.component(Create);
-// Vue.component(Err);
-// Vue.component(Intro);
-// Vue.component(Main);
-// Vue.component(Sprint);
-// Vue.component(Submitted);
-
 const routes = [
   {path: '/', component: Main},
   {path: '/create', component: Create},
