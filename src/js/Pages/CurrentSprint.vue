@@ -13,6 +13,7 @@
     .date{
       color: #aaa;
       font-size: 1.2em;
+      font-style: italic;
     }
     .header{
       margin-bottom: 20px;
@@ -57,7 +58,7 @@ export default {
   created(){
     const self = this;
     this.sprint = this.$route.params.sprintName;
-    
+
     qwest.get('/api/sprint', {name: this.sprint})
     .then(function(xhr, response){
       const {meta, comments} = response;
