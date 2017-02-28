@@ -5,11 +5,11 @@
     .comment-box{
       display: flex;
       flex-wrap: wrap;
-      overflow: auto;
+      overflow-x: hidden;
       padding: 2px;
     }
     .show-enter{
-      transform: translateX(-24px);
+      transform: translateX(24px);
       opacity: 0;
     }
     .show-enter-to{
@@ -35,7 +35,7 @@
       height: 28px;
       line-height: 8px;
       margin: auto 5px;
-      transition: .1s background, .2s transform, .3s opacity;
+      transition: .3s background, .2s transform, .3s opacity;
       vertical-align: middle;
       width: 28px;
     }
