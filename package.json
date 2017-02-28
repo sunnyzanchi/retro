@@ -29,7 +29,7 @@
     "qwest": "^4.4.5",
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.28",
-    "vue": "^2.1.10",
+    "vue": "^2.2.1",
     "vue-router": "^2.2.1",
     "vue-svg-loader": "^0.1.2"
   }
