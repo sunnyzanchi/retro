@@ -7,11 +7,14 @@ import Main from 'Pages/Main.vue';
 import Create from 'Pages/Create.vue';
 import Sprint from 'Pages/CurrentSprint.vue';
 import Err from 'Pages/Err.vue';
+import Submitted from 'Pages/Submitted.vue';
+
 Vue.component(Intro);
 Vue.component(Main);
 Vue.component(Create);
 Vue.component(Sprint);
 Vue.component(Err);
+Vue.component(Submitted);
 
 const routes = [
   {path: '/', component: Main},
@@ -21,7 +24,12 @@ const routes = [
     path: '/sprint/:sprintName',
     component: Sprint
   },
-  {path: '/err', component: Err}
+  {path: '/err', component: Err},
+  {
+    name: 'submitted',
+    path: '/submitted',
+    component: Submitted
+  }
 ];
 
 const router = new VueRouter({

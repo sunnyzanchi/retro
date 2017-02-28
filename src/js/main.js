@@ -6,9 +6,7 @@ const app = new Vue({
   router,
   el: '#app',
   created(){},
-  data: {
-    transition: ''
-  },
+  data: {},
   methods: {}
 });
 

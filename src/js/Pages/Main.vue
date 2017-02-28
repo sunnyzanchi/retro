@@ -3,6 +3,12 @@
     border: 1px solid #ccc;
     border-top: 0;
     border-radius: 5px;
+    transition: .2s background;
+
+    &:hover{
+      background: #eee;
+      cursor: pointer;
+    }
 
     &:first-of-type{
       border-top: 1px solid #ccc;

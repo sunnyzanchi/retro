@@ -153,7 +153,7 @@ export default {
 
       qwest.post('/api/comments', data)
       .then(function(xhr, response){
-        console.log(response);
+        router.push('/submitted');
       });
     }
   }

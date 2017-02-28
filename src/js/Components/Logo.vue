@@ -3,6 +3,9 @@
     max-width: 200px;
     margin: 25px auto;
   }
+  h1.title:hover{
+    cursor: pointer;
+  }
   .retro-icon{
     fill: #3c9;
   }

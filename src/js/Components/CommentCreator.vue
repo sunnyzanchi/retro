@@ -1,6 +1,8 @@
 <style lang="scss">
   .comments{
     padding: 5px;
+    max-width: 550px;
+    margin: auto;
 
     .comment-box{
       display: flex;
@@ -35,13 +37,17 @@
       height: 28px;
       line-height: 8px;
       margin: auto 5px;
-      transition: .3s background, .2s transform, .3s opacity;
+      transition: .2s background, .2s transform, .3s opacity;
       vertical-align: middle;
       width: 28px;
     }
     button.add:focus{
       outline: 0;
       background: #0a7;
+    }
+    button.add:hover{
+      background: #0a7;
+      cursor: pointer;
     }
     h1{
       font-size: 1.4em;

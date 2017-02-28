@@ -49,6 +49,10 @@ input:focus, textarea:focus{
   background: #0a7;
   outline: 0;
 }
+.big-button:not(:disabled):hover{
+  background: #0a7;
+  cursor: pointer;
+}
 .big-button:disabled{
   background: #999;
   color: #ccc;
@@ -57,7 +61,7 @@ input:focus, textarea:focus{
   display: flex;
   flex-direction: column;
   margin: auto;
-  max-width: 900px;
+  max-width: 700px;
   min-height: 100%;
   overflow: auto;
   width: 95%;
