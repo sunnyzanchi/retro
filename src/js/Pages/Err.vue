@@ -7,19 +7,17 @@
 </style>
 <template lang="html">
   <div class="err">
-    <h1 class="title">
-      <RetroIcon class="retro-icon" />
-    </h1>
+    <Logo />
     <h1>Something went wrong!</h1>
   </div>
 </template>
 
 <script>
-import RetroIcon from 'img/retro.svg';
+import Logo from 'Components/Logo.vue';
 
 export default {
   components: {
-    RetroIcon
+    Logo
   }
 }
 </script>
