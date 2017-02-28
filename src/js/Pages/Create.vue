@@ -51,7 +51,6 @@
 
 <script>
 import qwest from 'qwest';
-import router from '../router';
 
 import Logo from 'Components/Logo.vue';
 

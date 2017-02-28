@@ -25,12 +25,10 @@
 </template>
 
 <script>
-import router from '../router';
-
 export default {
   mounted(){
     setTimeout(function(){
-      router.push('/');
+      this.$router.push('/');
     }, 1000);
   }
 }

@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import router from '../router';
 import RetroIcon from 'img/retro.svg';
 
 export default {
@@ -28,7 +27,7 @@ export default {
   },
   methods: {
     navigateHome(){
-      router.push('/');
+      this.$router.push('/');
     }
   }
 }

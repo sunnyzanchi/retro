@@ -49,7 +49,6 @@
 <script>
 import qwest from 'qwest';
 import moment from 'moment';
-import router from '../router';
 
 import CommentCreator from 'Components/CommentCreator.vue';
 import Logo from 'Components/Logo.vue';
@@ -153,7 +152,7 @@ export default {
 
       qwest.post('/api/comments', data)
       .then(function(xhr, response){
-        router.push('/submitted');
+        this.$router.push('/submitted');
       });
     }
   }

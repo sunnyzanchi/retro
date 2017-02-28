@@ -52,8 +52,10 @@
   <div class="list container">
     <Logo />
     <ol v-if="sprints.length > 0">
-      <li class="sprint-item" v-for="sprint in sortedSprints">
-        <div @click="navigate(sprint.name)">
+      <li class="sprint-item"
+          v-for="sprint in sortedSprints"
+          @click="navigate(sprint.name)">
+        <div>
           <h1>{{sprint.name}}</h1>
           <span class="date">{{sprint.end | humanizeDate}}</span>
         </div>
@@ -68,7 +70,6 @@
 <script>
 import qwest from 'qwest';
 import moment from 'moment';
-import router from '../router';
 
 import Logo from 'Components/Logo.vue';
 
@@ -99,13 +100,13 @@ export default {
   },
   methods: {
     navigate(sprintName){
-      router.push({
+      this.$router.push({
         name: 'sprint',
         params: {sprintName}
       });
     },
     createSprint(){
-      router.push('/create');
+      this.$router.push('/create');
     }
   }
 }

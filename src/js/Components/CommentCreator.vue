@@ -36,7 +36,7 @@
       float: left;
       height: 28px;
       line-height: 8px;
-      margin: auto 5px;
+      margin: auto;
       transition: .2s background, .2s transform, .3s opacity;
       vertical-align: middle;
       width: 28px;
