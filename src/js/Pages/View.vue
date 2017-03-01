@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import qwest from 'qwest';
+import axios from 'axios';
 
 export default {
   computed: {
@@ -25,16 +25,11 @@ export default {
       },[]);
     }
   },
-  created(){
-    const self = this;
+  async created(){
     this.sprint = this.$route.params.sprintName;
 
-    qwest.get('/api/sprint', {name: this.sprint})
-    .then(function(xhr, response){
-      self.comments = response.comments;
-    })
-    //TODO: Handle error
-    .catch(err => err);
+    var {data} = await axios.get('/api/sprint', {params: {name: this.sprint}});
+    this.comments = data.comments;
   },
   data(){
     return {

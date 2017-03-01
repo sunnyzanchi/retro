@@ -47,27 +47,25 @@
 </template>
 
 <script>
-import qwest from 'qwest';
+import axios from 'axios';
 import moment from 'moment';
 
 import CommentCreator from 'Components/CommentCreator.vue';
 import Logo from 'Components/Logo.vue';
 
 export default {
-  created(){
-    const self = this;
+  async created(){
     this.sprint = this.$route.params.sprintName;
 
-    qwest.get('/api/sprint', {name: this.sprint})
-    .then(function(xhr, response){
-      const {meta, comments} = response;
-      self.start = meta.start;
-      self.end = meta.end;
-    })
-    .catch(function(err, xhr, response){
+    try{
+      const {data} = await axios.get('/api/sprint', {name: this.sprint});
+      this.start = data.meta.start;
+      this.end = data.meta.end;
+    }
+    catch(err){
       console.log(err);
-      router.replace('/err');
-    });
+      this.$router.replace('/err');
+    }
   },
   components: {
     CommentCreator,
@@ -135,7 +133,7 @@ export default {
     }
   },
   methods: {
-    submit(){
+    async submit(){
       const user = localStorage.getItem('name');
       const data = [];
 
@@ -150,10 +148,14 @@ export default {
         }
       }
 
-      qwest.post('/api/comments', data)
-      .then(function(xhr, response){
+      try{
+        await axios.post('/api/comments', data);
         this.$router.push('/submitted');
-      });
+      }
+      catch(err){
+        this.$router.push('/err');
+      }
+
     }
   }
 }

@@ -23,10 +23,10 @@
   "license": "MIT",
   "dependencies": {
     "autosize": "^3.0.20",
+    "axios": "^0.15.3",
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "moment": "^2.17.1",
-    "qwest": "^4.4.5",
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.28",
     "vue": "^2.2.1",

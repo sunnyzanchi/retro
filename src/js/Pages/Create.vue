@@ -48,9 +48,8 @@
             @click="submit">Create</button>
   </div>
 </template>
-
 <script>
-import qwest from 'qwest';
+import axios from 'axios';
 
 import Logo from 'Components/Logo.vue';
 
@@ -75,12 +74,18 @@ export default {
     }
   },
   methods: {
-    submit(){
-      qwest.put('/api/sprint', {
-        name: this.name,
-        start: this.start,
-        end: this.end
-      });
+    async submit(){
+      try{
+        await axios.put('/api/sprint', {
+          name: this.name,
+          start: this.start,
+          end: this.end
+        });
+        this.$router.push('/submitted');
+      }
+      catch(err){
+        this.$router.push('/err');
+      }
     }
   }
 }

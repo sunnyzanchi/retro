@@ -68,15 +68,15 @@
   </div>
 </template>
 <script>
-import qwest from 'qwest';
+import axios from 'axios';
 import moment from 'moment';
 
 import Logo from 'Components/Logo.vue';
 
 export default {
-  created(){
-    qwest.get('/api/sprints', null, {responseType: 'json'})
-      .then((xhr, response) => this.sprints = response);
+  async created(){
+    const {data} = await axios.get('/api/sprints');
+    this.sprints = data;
   },
   components: {
     Logo
