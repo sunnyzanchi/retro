@@ -3,6 +3,7 @@ const path = require('path');
 const router = express.Router();
 
 router.get('/sprint/:sprintName', sendIndex);
+router.get('/view/:sprintName', sendIndex);
 router.get('/create', sendIndex);
 
 

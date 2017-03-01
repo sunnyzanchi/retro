@@ -26,7 +26,7 @@ const routes = [
   },
   {
     name: 'view',
-    path: '/view',
+    path: '/view/:sprintName',
     component: View
   }
 ];
