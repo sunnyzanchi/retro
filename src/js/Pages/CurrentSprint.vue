@@ -29,7 +29,7 @@
     <Logo />
     <div class="sprint">
       <div class="header">
-        <h1 class="name">{{$route.params.sprintName}}</h1>
+        <h1 class="name">{{sprint}}</h1>
         <h2 class="date">Ends in {{daysTilEnd}}</h2>
       </div>
       <ul>
