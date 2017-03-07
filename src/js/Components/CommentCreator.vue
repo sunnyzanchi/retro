@@ -73,6 +73,7 @@
     <div class="comment-box">
       <textarea v-for="(comment, index) in comments"
                 :value="comment"
+                :ref="index"
                 @input="updateValue($event.target.value, index)"
                 @keydown.delete="deleteIfEmpty(index)"
                 v-autosize
@@ -87,20 +88,7 @@
   </div>
 </template>
 <script>
-import autosize from 'autosize';
-import Vue from 'vue';
-
-Vue.directive('autosize', {
-  inserted(el){
-    autosize(el);
-  }
-});
-
-Vue.directive('focus', {
-  inserted(el, {value}){
-    if(value) el.focus();
-  }
-});
+import {autosize, focus} from '../directives';
 
 export default {
   computed: {
@@ -114,6 +102,10 @@ export default {
     return {
       comments: ['']
     }
+  },
+  directives: {
+    autosize,
+    focus
   },
   methods: {
     addComment(){
