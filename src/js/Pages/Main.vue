@@ -53,7 +53,7 @@
     <Logo />
     <ol v-if="sprints.length > 0">
       <li class="sprint-item"
-          v-for="sprint in sortedSprints"
+          v-for="sprint in sprints"
           @click="navigate(sprint.name)">
         <div>
           <h1>{{sprint.name}}</h1>
@@ -74,19 +74,12 @@ import moment from 'moment';
 import Logo from 'Components/Logo.vue';
 
 export default {
-  async created(){
+  async beforeRouteEnter(to, from, next){
     const {data} = await axios.get('/api/sprints');
-    this.sprints = data;
+    next(vm => vm.sprints = data);
   },
   components: {
     Logo
-  },
-  computed: {
-    sortedSprints(){
-      const result = [];
-      for(let i of this.sprints)
-      return this.sprints;
-    }
   },
   data(){
     return {
