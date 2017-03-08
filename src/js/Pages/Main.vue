@@ -54,7 +54,7 @@
     <ol v-if="sprints.length > 0">
       <li class="sprint-item"
           v-for="sprint in sprints"
-          @click="navigate(sprint.name)">
+          @click="navigate(sprint)">
         <div>
           <h1>{{sprint.name}}</h1>
           <span class="date">{{sprint.end | humanizeDate}}</span>
@@ -92,11 +92,18 @@ export default {
     }
   },
   methods: {
-    navigate(sprintName){
-      this.$router.push({
-        name: 'sprint',
-        params: {sprintName}
-      });
+    navigate({name, end}){
+      console.log(moment(end).diff(moment(), 'days'));
+      if(moment(end).diff(moment(), 'days') < -7)
+        this.$router.push({
+          name: 'view',
+          params: {sprintName: name}
+        });
+      else
+        this.$router.push({
+          name: 'sprint',
+          params: {sprintName: name}
+        });
     },
     createSprint(){
       this.$router.push('/create');
