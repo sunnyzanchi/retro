@@ -58,7 +58,7 @@ export default {
     this.sprint = this.$route.params.sprintName;
 
     try{
-      const {data} = await axios.get('/api/sprint', {name: this.sprint});
+      const {data} = await axios.get('/api/sprint', {params: {name: this.sprint}});
       this.start = data.meta.start;
       this.end = data.meta.end;
     }

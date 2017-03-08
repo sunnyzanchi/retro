@@ -23,6 +23,8 @@ router.get('/sprints', function(req, res){
 router.route('/sprint')
   .get(function(req, res){
     const name = req.query.name;
+    if(typeof name === 'undefined' || name === '')
+      res.status(400).send('"name" query parameter must be specified');
 
     const meta = r.table('sprints')
       .filter({name})
@@ -38,7 +40,7 @@ router.route('/sprint')
     .then(function(values){
       const [meta, comments] = values;
 
-      if(meta.length === 0) return res.status(404).send('Can\'t find that sprint!');
+      if(meta.length === 0) return res.status(404).send('Can\'t find that sprint');
 
       return res.json({meta: meta[0], comments});
     })
