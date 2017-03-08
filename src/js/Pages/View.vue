@@ -95,7 +95,7 @@ export default {
   async created(){
     this.sprint = this.$route.params.sprintName;
 
-    var {data} = await axios.get('/api/sprint', {params: {name: this.sprint}});
+    var {data} = await axios.get(`/api/sprints/${this.sprint}`);
     this.comments = data.comments;
   },
   data(){

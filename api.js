@@ -16,15 +16,13 @@ router.get('/sprints', function(req, res){
 });
 
 /*
- * /sprint
+ * /sprints/:name
  * GET: Gets the information for a given sprint
  * PUT: Creates a new sprint with the given information
  */
-router.route('/sprint')
+router.route('/sprints/:name')
   .get(function(req, res){
-    const name = req.query.name;
-    if(typeof name === 'undefined' || name === '')
-      res.status(400).send('"name" query parameter must be specified');
+    const name = req.params.name;
 
     const meta = r.table('sprints')
       .filter({name})
@@ -56,7 +54,7 @@ router.route('/sprint')
     let data = {
       start: start.toDate(),
       end: end.toDate(),
-      name: req.body.name
+      name: req.params.name
     };
     r.table('sprints').insert(data, {conflict: 'error'}).run()
       .then(_ => res.status(201).end())
@@ -64,29 +62,41 @@ router.route('/sprint')
   });
 
 /*
- * /comments
+ * /sprints/:name/comments
  * GET: Gets all the comments for a given sprints
  * POST: Adds comments to the given sprint
  */
- router.route('/comments')
-   .get(function(req, res){
-     const name = req.query.name;
+router.route('/sprints/:name/comments')
+  .get(function(req, res){
+     const name = req.params.name;
 
      r.table('comments').filter({name}).pluck('name', 'comments', 'user').run()
      .then(result => res.json(result))
      .catch(err => res.status(500).send(err));
    })
 
-   .post(function(req, res){
-     const comments = req.body;
-     const time = new Date;
-     for(let comment of comments){
-       comment.time = time;
-     }
+  .post(async function(req, res){
+    const name = req.params.name;
 
-     r.table('comments').insert(comments).run()
+    const [{end}] = await r.table('sprints')
+      .filter({name})
+      .pluck('end')
+      .run();
+
+    if(moment(end).diff(moment(), 'days') < -7)
+      return res.status(403).send('Cannot add comments more than a week after sprint has ended!');
+
+    const comments = req.body;
+
+    const time = new Date;
+    for(let comment of comments){
+      comment.time = time;
+      comment.name = name;
+    }
+
+    r.table('comments').insert(comments).run()
       .then(_ => res.status(201).end())
       .catch(err => res.status(500).send(err));
-   });
+  });
 
 module.exports = router;

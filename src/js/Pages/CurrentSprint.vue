@@ -58,7 +58,7 @@ export default {
     this.sprint = this.$route.params.sprintName;
 
     try{
-      const {data} = await axios.get('/api/sprint', {params: {name: this.sprint}});
+      const {data} = await axios.get(`/api/sprints/${this.sprint}`);
       this.start = data.meta.start;
       this.end = data.meta.end;
     }
@@ -142,14 +142,13 @@ export default {
           data.push({
             comment,
             user,
-            type: type.name,
-            sprint: this.sprint
+            type: type.name
           });
         }
       }
 
       try{
-        await axios.post('/api/comments', data);
+        await axios.post(`/api/sprints/${this.sprint}/comments`, data);
         this.$router.push('/submitted');
       }
       catch(err){
