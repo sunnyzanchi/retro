@@ -76,7 +76,7 @@ export default {
   methods: {
     async submit(){
       try{
-        await axios.put(`/api/sprints/${this.sprint}`, {
+        await axios.put(`/api/sprints/${this.name}`, {
           start: this.start,
           end: this.end
         });
