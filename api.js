@@ -55,7 +55,7 @@ router.route('/sprints/:name')
 
     await r.table('sprints')
             .insert(data, {conflict: 'error'})
-            .run()
+            .run();
 
     return res.status(201).end();
   });
