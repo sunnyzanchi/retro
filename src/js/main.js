@@ -3,8 +3,5 @@ import router from './router';
 
 const app = new Vue({
   router,
-  el: '#app',
-  created(){},
-  data: {},
-  methods: {}
+  el: '#app'
 });
