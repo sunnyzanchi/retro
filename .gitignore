@@ -47,12 +47,7 @@ jspm_packages
 .yarn-integrity
 
 # Bundles
-public/*
-!public/index.html
-!public/favicon.png
-!public/manifest.json
-!public/css
-!public/img
+public/js
 
 # Database creds
 db.json
