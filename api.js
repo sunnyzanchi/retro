@@ -45,7 +45,7 @@ router.route('/sprints/:name')
     const end = moment(req.body.end);
 
     if(!start.isValid() || !end.isValid()) return res.status(400).send('Invalid date');
-    if(!end.isAfter(start)) return res.status(400).send('End date must be after start date');
+    if(end.isBefore(start)) return res.status(400).send('End date must be after start date');
 
     let data = {
       start: start.toDate(),
